@@ -1,4 +1,5 @@
 import math
+import sys
 from threading import Thread, Lock
 
 # Calculate Prime by divide number and check % == 0
@@ -40,9 +41,14 @@ def processPrimes(n):
 def main():
     global primesCheckArray
     primesCount = 0
-
+    n = 0
+    t = 0
+    
     print("Program wyznaczający liczby pierwsze z zakresu [1,N]")
 
+    # To do
+    # check lenght of sys.argv[1]
+    # and if it less than 1 check input else get sys.argv
     n = int(input("Podaj N: "))
     primesCheckArray = [False] * n
 

@@ -15,7 +15,7 @@ def isPrime(number):
 
 
 def main():
-    print("Program wyznaczający N liczb pierwszych")
+    print("Program wyznaczający liczby pierwsze z zakresu [1,N]")
 
     primeNumbersCount = 0
     n = int(input("Podaj N: "))
@@ -24,7 +24,6 @@ def main():
             primeNumbersCount += 1
             print(i)
 
-    isPrime(2)
     print("Wyznaczono " + str(primeNumbersCount) + " liczb pierwszych.")
     print("Kończe działanie programu")
 

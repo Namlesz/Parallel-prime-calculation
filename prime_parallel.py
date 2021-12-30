@@ -1,6 +1,7 @@
 import math
 import sys
 from threading import Thread, Lock
+import time
 
 # Calculate Prime by divide number and check % == 0
 def isPrime(number):
@@ -23,13 +24,19 @@ def processPrimes(n):
     while isRunning:
         # Lock mutex
         mutex.acquire()
-        # Get current value to check is Prime
-        valueToCheck = current_number
-        # Set next value to check if it's Prime
-        current_number += 1
+
         # If next value i out of range stop program
         if current_number > n:
             isRunning = False
+            mutex.release()
+            return
+
+        # Get current value to check is Prime
+        valueToCheck = current_number
+
+        # Set next value to check if it's Prime
+        current_number += 1
+
         # Unlock mutex
         mutex.release()
 
@@ -43,17 +50,21 @@ def main():
     primesCount = 0
     n = 0
     t = 0
-    
+
     print("Program wyznaczający liczby pierwsze z zakresu [1,N]")
 
-    # To do
-    # check lenght of sys.argv[1]
-    # and if it less than 1 check input else get sys.argv
-    n = int(input("Podaj N: "))
+    # If program is not running with num of therads and N, check the input
+    if len(sys.argv) >= 3:
+        t = int(sys.argv[1])
+        n = int(sys.argv[2])
+    else:
+        t = int(input("Podaj liczbę wątków do uruchomienia: "))
+        n = int(input("Podaj N: "))
+
     primesCheckArray = [False] * n
 
-    t = int(input("Podaj liczbę wątków do uruchomienia: "))
     threads = []
+    start_time = time.time()  # start timer for prime calculations
 
     # Create 't' threads and start
     try:
@@ -67,14 +78,19 @@ def main():
     for thread in threads:
         thread.join()
 
-    # Print primes
+    end_time = time.time() - start_time  # end timer for prime calculations
+
+    # Count primes and print only when 3 argument is print
     for i in range(n):
         if primesCheckArray[i]:
             primesCount += 1
-            print(i)
 
-    print("Wyznaczono " + str(primesCount) + " liczb(y) pierwszych.")
-    print("Kończe działanie programu")
+            if len(sys.argv) > 3 and sys.argv[3] == "print":
+                print(i)
+
+    print("Wyznaczono " + str(primesCount) + " liczb pierwszych.")
+    print("Czas wyznaczania liczb pierwszych: " + str(end_time) + " sekund.")
+    print("Kończe działanie programu.")
 
 
 # Define global variables

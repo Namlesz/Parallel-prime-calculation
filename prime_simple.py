@@ -1,8 +1,7 @@
 import math
-import sys
 import time
 
-
+# Sprawdzanie liczby pierwszej poprzez dzielenie
 def isPrime(number):
     if number <= 1:
         return False
@@ -16,28 +15,31 @@ def isPrime(number):
     return True
 
 
-def main():
+# Główna pętla
+if __name__ == "__main__":
     print("Program wyznaczający liczby pierwsze z zakresu [1,N]")
-    n = 0
     primesCount = 0
-    if len(sys.argv) <= 1:
-        n = int(input("Podaj N: "))
-    else:
-        n = int(sys.argv[1])
+    n = int(input("Podaj N: "))
+    print_primes = input("Wypisać znalezione liczby pierwsze? (y/n): ")
 
-    start_time = time.time()  # start timer for prime calculations
+    primesCheckArray = [False] * (n + 1)
 
-    for i in range(0, n):
+    start_time = time.time()  # Uruchomienie czasomierza
+
+    for i in range(0, n + 1):
         if isPrime(i):
-            primesCount += 1
-            if len(sys.argv) > 2 and sys.argv[2] == "print":
-                print(i)
+            primesCheckArray[i] = True
 
-    end_time = time.time() - start_time  # end timer for prime calculations
+    end_time = time.time() - start_time  # Zatrzymanie czasomierza
+
+    # Zliczenie liczb pierwszych i wyświetlenie wyników
+    for i in range(n + 1):
+        if primesCheckArray[i]:
+            primesCount += 1
+
+            if print_primes == "y":
+                print(i)
 
     print("Wyznaczono " + str(primesCount) + " liczb pierwszych.")
     print("Czas wyznaczania liczb pierwszych: " + str(end_time) + " sekund.")
     print("Kończe działanie programu.")
-
-
-main()

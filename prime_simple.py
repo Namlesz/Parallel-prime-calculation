@@ -17,15 +17,18 @@ def isPrime(number):
 
 # Główna pętla
 if __name__ == "__main__":
+    # Podanie danych wejsciowychs
     print("Program wyznaczający liczby pierwsze z zakresu [1,N]")
     primesCount = 0
     n = int(input("Podaj N: "))
     print_primes = input("Wypisać znalezione liczby pierwsze? (y/n): ")
 
+    # Inicjalizacja tablicy liczb pierwszych (n+1), bo sprawdzamy N liczb a tablica indeksowana od 0
     primesCheckArray = [False] * (n + 1)
 
     start_time = time.time()  # Uruchomienie czasomierza
 
+    # Sprawdzenie N liczb czy są pierwsze
     for i in range(0, n + 1):
         if isPrime(i):
             primesCheckArray[i] = True
@@ -40,6 +43,7 @@ if __name__ == "__main__":
             if print_primes == "y":
                 print(i)
 
+    # Podsumowanie końcowe
     print("Wyznaczono " + str(primesCount) + " liczb pierwszych.")
     print("Czas wyznaczania liczb pierwszych: " + str(end_time) + " sekund.")
     print("Kończe działanie programu.")

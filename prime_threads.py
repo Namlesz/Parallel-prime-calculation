@@ -27,7 +27,7 @@ def processPrimes(n):
         # w naszym rozwiazaniu jezeli watek obliczy te sama wartosc, nie zmieni to naszego koncowego wyniku
         # a takie rozwiazanie jest zdecydowanie szybsze
 
-        # with mutex:
+        # with mutex: (OPCJONALNE)
         # Jezeli następna wartość jest większa niz zakres, zatrzymaj wątki
         if current_number > n:
             isRunning = False
@@ -38,7 +38,7 @@ def processPrimes(n):
 
         # Ustaw następną wartość do wyliczenia
         current_number += 1
-        # END 'with mutex:'
+        # END 'with mutex:' (OPCJONALNE)
 
         # Sprawdzenie czy liczba jest pierwsza, i dodanie do tablicy prawdy
         if isPrime(valueToCheck):
@@ -46,7 +46,8 @@ def processPrimes(n):
 
 
 if __name__ == "__main__":
-    global primesCheckArray, isRunning, current_number  # Zdefiniowanie zmiennych globalnych
+    # Zdefiniowanie zmiennych globalnych
+    global primesCheckArray, isRunning, current_number
     isRunning = True
     current_number = 1
     primesCount = 0
@@ -59,12 +60,15 @@ if __name__ == "__main__":
         + str(mp.cpu_count())
     )
 
+    # Podanie danych wejściowych
     threads_count = int(input("Podaj liczbę wątków do uruchomienia: "))
     n = int(input("Podaj N: "))
     print_primes = input("Wypisać znalezione liczby pierwsze? (y/n): ")
 
+    # Inicjalizacja tablicy liczb pierwszych (n+1), bo sprawdzamy N liczb a tablica indeksowana od 0
     primesCheckArray = [False] * (n + 1)
 
+    # Inicjalizacja tablicy wątków
     threads = []
 
     # Utworzenie wątków
@@ -95,6 +99,7 @@ if __name__ == "__main__":
             if print_primes == "y":
                 print(i)
 
+    # Podsumowanie końcowe
     print("Wyznaczono " + str(primesCount) + " liczb pierwszych.")
     print("Czas wyznaczania liczb pierwszych: " + str(end_time) + " sekund.")
     print("Kończe działanie programu.")
